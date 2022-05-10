@@ -16,3 +16,13 @@
     border-radius: 10px;
     width: 400px;
 }
+
+.custom-list {
+    background: black;
+}
+
+.list-group .list-group-item{
+    background: aliceblue;
+    display: flex;
+    justify-content: space-between;
+}

@@ -43,7 +43,7 @@ export const Login = () => {
 
         {isLoading && <Spinner animation="border" variant="primary"></Spinner>}
 
-        {error && <Alert variant="danger">{error.message}</Alert>}
+        {error && <Alert variant="danger">{error}</Alert>}
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control ref={emailRef} type="email" placeholder="Enter email" />
