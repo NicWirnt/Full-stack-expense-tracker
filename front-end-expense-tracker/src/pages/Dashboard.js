@@ -12,17 +12,24 @@ export const Dashboard = () => {
     status: "",
     message: "",
   });
+
   const [isLoading, setIsLoading] = useState(false);
+  const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem("user"));
     if (!user?._id) {
       navigator("/");
     }
+    fetchExpenses();
   }, [navigator]);
 
   const fetchExpenses = async () => {
-    const data = await getExpenses();
+    if (!expenses.length) {
+      const data = await getExpenses();
+
+      data?.status === "success" && setExpenses(data.expenses);
+    }
   };
 
   const handleOnPost = async (formDt) => {
@@ -34,8 +41,9 @@ export const Dashboard = () => {
     console.log(data);
     setIsLoading(false);
     setResp(data);
+    data.status === "success" && fetchExpenses();
   };
-
+  console.log(expenses);
   return (
     <MainLayout>
       <div>dashboard</div>
@@ -55,7 +63,7 @@ export const Dashboard = () => {
 
       <ExpensesForm handleOnPost={handleOnPost} />
 
-      <CustomTable />
+      <CustomTable expenses={expenses} />
     </MainLayout>
   );
 };
