@@ -12,14 +12,17 @@ app.use(cors());
 app.use(morgan("tiny"));
 
 // DB Connection
-import { dbConnection } from "./config/db.js";
+import { dbConnection } from "./src/config/db.js";
 dbConnection();
+
+//Middlewares
+import { userAuth } from "./src/middlewares/authMiddleware.js";
 
 // APIs
 import router from "./src/routers/userRouter.js";
 import expensesRouter from "./src/routers/expensesRouter.js";
 app.use("/api/v1/users", router);
-app.use("/api/v1/expenses", expensesRouter);
+app.use("/api/v1/expenses", userAuth, expensesRouter);
 
 app.get("*", (req, res) => {
   res.status(404).send("<h1> 404 Not Found</h1>");

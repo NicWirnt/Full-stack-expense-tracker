@@ -27,6 +27,7 @@ Content-Type: application/json
 
 ###GET EXEPENSES
 GET http://localhost:8000/api/v1/expenses
+Authorization: 6279c84595e8f5b8e972e1eb
 
 
 ###POST EXEPENSES

@@ -1,12 +1,27 @@
 import express from "express";
-import { createExpenses } from "../../models/expensesModel/Expenses.model.js";
+import {
+  createExpenses,
+  getExpenses,
+} from "../models/expensesModel/Expenses.model.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.json({
-    message: "welcome to the expense API get",
-  });
+router.get("/", async (req, res) => {
+  try {
+    const { authorization } = req.headers;
+
+    // model get all expenses of userID == authorization
+    const expenses = await getExpenses({ userId: authorization });
+    res.json({
+      status: "successs",
+      expenses,
+    });
+  } catch (error) {
+    res.json({
+      status: "error",
+      message: error.message,
+    });
+  }
 });
 
 router.post("/", async (req, res) => {
