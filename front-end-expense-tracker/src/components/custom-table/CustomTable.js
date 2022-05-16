@@ -10,7 +10,7 @@ export const CustomTable = ({ expenses, handleOnDelete }) => {
             <span className="title">{item.name}</span>
             <span className="cost">${item.amount}</span>
             <span className="cost">{item.date}</span>
-            <button variant="danger" onClick={handleOnDelete}>
+            <button variant="danger" onClick={() => handleOnDelete(item._id)}>
               <i className="fas fa-backspace"></i>
             </button>
           </ListGroup.Item>

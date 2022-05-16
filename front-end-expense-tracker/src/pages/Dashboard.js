@@ -46,10 +46,9 @@ export const Dashboard = () => {
     data.status === "success" && fetchExpenses();
   };
 
-  const handleOnDelete = async (formDt) => {
-    console.log("delete", formDt);
-
-    const data = await deleteExpenses(formDt);
+  const handleOnDelete = async (idTask) => {
+    console.log("delete", idTask);
+    const data = await deleteExpenses(idTask);
     setResp(data);
     console.log(data);
     data.status === "success" && fetchExpenses();
