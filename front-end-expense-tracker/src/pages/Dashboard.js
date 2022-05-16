@@ -7,6 +7,11 @@ import { MainLayout } from "../components/layout/MainLayout";
 export const Dashboard = () => {
   const navigator = useNavigate();
 
+  const handleOnPost = (formDt) => {
+    //call the api
+    console.log("sumbmit", formDt);
+  };
+
   useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem("user"));
     if (!user?._id) {
@@ -20,7 +25,7 @@ export const Dashboard = () => {
 
       <hr />
 
-      <ExpensesForm />
+      <ExpensesForm handleOnPost={handleOnPost} />
 
       <CustomTable />
     </MainLayout>

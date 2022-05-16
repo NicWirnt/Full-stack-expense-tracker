@@ -29,7 +29,7 @@ Content-Type: application/json
 GET http://localhost:8000/api/v1/expenses
 
 
-###GET EXEPENSES
+###POST EXEPENSES
 POST  http://localhost:8000/api/v1/expenses
 Content-Type: application/json
 Authorization: 6278a4316e830d3c25563a38
@@ -40,5 +40,5 @@ Authorization: 6278a4316e830d3c25563a38
     "date" : "2022-05-10"
 }
 
-###GET EXEPENSES
+###DELETE EXEPENSES
 DELETE  http://localhost:8000/api/v1/expenses
