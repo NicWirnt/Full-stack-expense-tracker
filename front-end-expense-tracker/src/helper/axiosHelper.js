@@ -76,3 +76,23 @@ export const getExpenses = async (formDt) => {
     };
   }
 };
+
+export const deleteExpenses = async (idTask) => {
+  try {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const { data } = await axios.delete(expApi + "/" + idTask, {
+      headers: {
+        Authorization: user._id,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+    return {
+      data: {
+        status: "error",
+        message: error.message,
+      },
+    };
+  }
+};

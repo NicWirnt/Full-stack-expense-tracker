@@ -4,7 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { CustomTable } from "../components/custom-table/CustomTable";
 import { ExpensesForm } from "../components/expenses-form/ExpensesForm";
 import { MainLayout } from "../components/layout/MainLayout";
-import { getExpenses, postExpenses } from "../helper/axiosHelper";
+import {
+  deleteExpenses,
+  getExpenses,
+  postExpenses,
+} from "../helper/axiosHelper";
 
 export const Dashboard = () => {
   const navigator = useNavigate();
@@ -25,11 +29,9 @@ export const Dashboard = () => {
   }, [navigator]);
 
   const fetchExpenses = async () => {
-    if (!expenses.length) {
-      const data = await getExpenses();
+    const data = await getExpenses();
 
-      data?.status === "success" && setExpenses(data.expenses);
-    }
+    data?.status === "success" && setExpenses(data.expenses);
   };
 
   const handleOnPost = async (formDt) => {
@@ -43,6 +45,15 @@ export const Dashboard = () => {
     setResp(data);
     data.status === "success" && fetchExpenses();
   };
+
+  const handleOnDelete = async (idTask) => {
+    console.log("delete", idTask);
+    const data = await deleteExpenses(idTask);
+    setResp(data);
+    console.log(data);
+    data.status === "success" && fetchExpenses();
+  };
+
   console.log(expenses);
   return (
     <MainLayout>
@@ -63,7 +74,7 @@ export const Dashboard = () => {
 
       <ExpensesForm handleOnPost={handleOnPost} />
 
-      <CustomTable expenses={expenses} />
+      <CustomTable expenses={expenses} handleOnDelete={handleOnDelete} />
     </MainLayout>
   );
 };

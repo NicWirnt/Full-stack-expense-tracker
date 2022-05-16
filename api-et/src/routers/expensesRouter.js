@@ -50,15 +50,27 @@ router.post("/", async (req, res) => {
   console.log(req.body);
 });
 
-router.delete("/", async (req, res) => {
+router.delete("/:_id", async (req, res) => {
   try {
+    const { _id } = req.params;
     const { authorization } = req.headers;
-
-    const result = await deleteExpense({ ...req.body });
-  } catch (error) {}
-  res.json({
-    message: "welcome to the expense API delete",
-  });
+    console.log(authorization, _id, "delete-router");
+    const result = await deleteExpense({ _id, userId: authorization });
+    result?.id
+      ? res.json({
+          status: "success",
+          message: "Expenses deleted successfully",
+        })
+      : res.json({
+          status: "error",
+          message: "Error deleting expenses, please try again later",
+        });
+  } catch (error) {
+    res.json({
+      status: "error",
+      message: error.message,
+    });
+  }
 });
 
 export default router;
