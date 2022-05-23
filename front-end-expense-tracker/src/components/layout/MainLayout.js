@@ -14,7 +14,7 @@ export const MainLayout = ({ children }) => {
 
       {/* FOoter */}
       <footer className="footer bg-dark text-light p-5 text-center">
-        &copy right all rights reserved. Build 🎶🎶🎶 by Nico Wiranata
+        ©️©️©️ all rights reserved. Build 🎶🎶🎶 by Nico Wiranata
       </footer>
     </div>
   );

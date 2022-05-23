@@ -52,8 +52,8 @@ router.post("/", async (req, res) => {
 
 router.delete("/:_id", async (req, res) => {
   try {
-    const { _id } = req.params;
-    const { authorization } = req.headers;
+    const { _id } = req.params; //Task ID
+    const { authorization } = req.headers; // USER ID
     console.log(authorization, _id, "delete-router");
     const result = await deleteExpense({ _id, userId: authorization });
     result?.id

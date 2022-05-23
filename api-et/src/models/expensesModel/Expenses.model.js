@@ -13,7 +13,7 @@ export const getExpenses = (filter) => {
 };
 
 //Filter mush be an object, that should at least contains the userId and expenses Id
-export const deleteExpense = (_id, obj) => {
-  console.log(_id, obj);
-  return ExpensesSchema.findOneAndDelete(_id, obj);
+export const deleteExpense = (filter) => {
+  console.log(filter, "FROM MODEL");
+  return ExpensesSchema.findOneAndDelete(filter);
 };
