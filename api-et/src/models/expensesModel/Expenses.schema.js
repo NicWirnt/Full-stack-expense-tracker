@@ -19,6 +19,10 @@ const ExpensesSchema = new mongoose.Schema(
       ref: "user",
       required: true,
     },
+    type: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

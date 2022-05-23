@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "react-bootstrap": "^2.3.1"
+    "react-bootstrap": "^2.3.1",
+    "serve": "^13.0.2"
   }
 }

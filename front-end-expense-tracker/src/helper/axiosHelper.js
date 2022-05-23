@@ -77,13 +77,14 @@ export const getExpenses = async (formDt) => {
   }
 };
 
-export const deleteExpenses = async (idTask) => {
+export const deleteExpenses = async (ids) => {
   try {
     const user = JSON.parse(sessionStorage.getItem("user"));
-    const { data } = await axios.delete(expApi + "/" + idTask, {
+    const { data } = await axios.delete(expApi, {
       headers: {
         Authorization: user._id,
       },
+      data: ids,
     });
     return data;
   } catch (error) {

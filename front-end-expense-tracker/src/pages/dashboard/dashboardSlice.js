@@ -22,6 +22,7 @@ const dashboardSlice = createSlice({
     },
     setExpenses: (state, { payload = [] }) => {
       state.expenses = payload;
+      state.isLoading = false;
     },
   },
 });

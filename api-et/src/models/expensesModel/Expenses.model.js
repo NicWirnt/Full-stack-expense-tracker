@@ -17,3 +17,7 @@ export const deleteExpense = (filter) => {
   console.log(filter, "FROM MODEL");
   return ExpensesSchema.findOneAndDelete(filter);
 };
+
+export const deleteManyExpenses = (userId, itemIds) => {
+  return ExpensesSchema.deleteMany({ userId, _id: { $in: itemIds } });
+};

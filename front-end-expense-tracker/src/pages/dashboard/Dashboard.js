@@ -9,6 +9,7 @@ import {
   getExpenses,
   postExpenses,
 } from "../../helper/axiosHelper";
+import { useSelector } from "react-redux";
 
 export const Dashboard = () => {
   const navigator = useNavigate();
@@ -16,8 +17,8 @@ export const Dashboard = () => {
     status: "",
     message: "",
   });
-
   const [isLoading, setIsLoading] = useState(false);
+
   // const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
@@ -27,25 +28,6 @@ export const Dashboard = () => {
     }
     // fetchExpenses();
   }, [navigator]);
-
-  const handleOnPost = async (formDt) => {
-    //call the api
-    console.log("sumbmit", formDt);
-
-    setIsLoading(true);
-    const data = await postExpenses(formDt);
-    console.log(data);
-    setIsLoading(false);
-    setResp(data);
-    // data.status === "success" && fetchExpenses();
-  };
-
-  const handleOnDelete = async (idTask) => {
-    const data = await deleteExpenses(idTask);
-    setResp(data);
-    console.log(data);
-    // data.status === "success" && fetchExpenses();
-  };
 
   return (
     <MainLayout>
@@ -64,9 +46,9 @@ export const Dashboard = () => {
         </Col>
       </Row>
 
-      <ExpensesForm handleOnPost={handleOnPost} />
+      <ExpensesForm />
 
-      <CustomTable handleOnDelete={handleOnDelete} />
+      <CustomTable />
     </MainLayout>
   );
 };
