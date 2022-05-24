@@ -2,13 +2,22 @@ import React, { useState, useRef } from "react";
 import { Alert, Button, Form, Row, Spinner } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { postLogin } from "../../helper/axiosHelper";
+import {
+  isLoadingPending,
+  setResponse,
+  loginSuccessResponse,
+} from "../register/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Login = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState("");
+  // const [isLoading, setIsLoading] = useState(false);
   const navigator = useNavigate();
+
+  const { res, isLoading } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const handleOnSubmit = async () => {
     const email = emailRef.current.value;
@@ -18,21 +27,23 @@ export const Login = () => {
       return alert("Please enter the email and password");
     }
 
-    setIsLoading(true);
+    dispatch(isLoadingPending(true));
     const { data } = await postLogin({ email, password });
-    setIsLoading(false);
+    dispatch(isLoadingPending(false));
 
     // if login success, store user data in sessionStorage
     // else, show error message
     if (data.status === "Success") {
       const { name, email, _id } = data.user;
+      dispatch(loginSuccessResponse(data.user));
+
       sessionStorage.setItem("user", JSON.stringify({ name, email, _id }));
-      setError("");
       navigator("/dashboard");
       return;
     }
-
-    setError(data.message);
+    //show error message
+    // setError(data.message);
+    dispatch(setResponse(data));
   };
 
   return (
@@ -43,7 +54,7 @@ export const Login = () => {
 
         {isLoading && <Spinner animation="border" variant="primary"></Spinner>}
 
-        {error && <Alert variant="danger">{error}</Alert>}
+        {res?.message && <Alert variant="danger">{res?.message}</Alert>}
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control ref={emailRef} type="email" placeholder="Enter email" />

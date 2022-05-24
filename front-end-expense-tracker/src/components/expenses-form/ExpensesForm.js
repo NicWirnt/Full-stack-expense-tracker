@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 
-export const ExpensesForm = ({ handleOnPost }) => {
+import { handleOnPost } from "../../pages/dashboard/dashboardAction";
+
+export const ExpensesForm = () => {
+  const dispatch = useDispatch();
+
   const initialState = {
     name: "",
     amount: "",
@@ -21,13 +26,25 @@ export const ExpensesForm = ({ handleOnPost }) => {
 
   const handleOnSumbit = (e) => {
     e.preventDefault();
-    handleOnPost(formDt);
+    dispatch(handleOnPost(formDt));
   };
 
   return (
     <div>
       <Form onSubmit={handleOnSumbit}>
         <Row className="g-3 bg-secondary p-4 rounded pb-5">
+          <Col md="4">
+            <Form.Select
+              aria-label="default select example"
+              onChange={handleOnChange}
+              name="type"
+              required
+            >
+              <option>Select One</option>
+              <option value="income">Income</option>
+              <option value="expenses">Expenses</option>
+            </Form.Select>
+          </Col>
           <Col md="4">
             <Form.Control
               type="text"

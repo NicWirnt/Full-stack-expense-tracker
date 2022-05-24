@@ -2,6 +2,7 @@ import express from "express";
 import {
   createExpenses,
   deleteExpense,
+  deleteManyExpenses,
   getExpenses,
 } from "../models/expensesModel/Expenses.model.js";
 
@@ -50,13 +51,13 @@ router.post("/", async (req, res) => {
   console.log(req.body);
 });
 
-router.delete("/:_id", async (req, res) => {
+router.delete("/", async (req, res) => {
   try {
-    const { _id } = req.params;
-    const { authorization } = req.headers;
-    console.log(authorization, _id, "delete-router");
-    const result = await deleteExpense({ _id, userId: authorization });
-    result?.id
+    const ids = req.body; //Task ID
+    const { authorization } = req.headers; // USER ID
+
+    const data = await deleteManyExpenses(authorization, ids);
+    data?.deletedCount
       ? res.json({
           status: "success",
           message: "Expenses deleted successfully",
