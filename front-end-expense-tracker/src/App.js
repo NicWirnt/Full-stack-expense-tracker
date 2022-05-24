@@ -5,6 +5,7 @@ import { RegisterPage } from "./pages/RegisterPage";
 import { Dashboard } from "./pages/dashboard/Dashboard";
 
 function App() {
+  console.log(process.env.NODE_ENV);
   return (
     <div className="">
       <BrowserRouter>

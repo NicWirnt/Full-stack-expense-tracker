@@ -46,7 +46,7 @@ export const CustomTable = () => {
     expense: expensesArg,
   };
 
-  console.log(transaction);
+  // console.log(transaction[display]);
 
   return (
     <div className="mt-5 custom-list fs-3">
@@ -58,7 +58,7 @@ export const CustomTable = () => {
           <Button onClick={() => setDisplay("income")} variant="info">
             income
           </Button>
-          <Button onClick={() => setDisplay("expenses")} variant="danger">
+          <Button onClick={() => setDisplay("expense")} variant="danger">
             expenses
           </Button>
         </ButtonGroup>
@@ -73,7 +73,7 @@ export const CustomTable = () => {
       )}
       <Form>
         <ListGroup variant="flush">
-          {expenses.map((item, i) => (
+          {transaction[display].map((item, i) => (
             <ListGroup.Item key={i} className="fw-bold">
               <Form.Group className="mb-3" id="formGridList">
                 <Form.Check
